@@ -2,7 +2,7 @@
 
 *A quick way to learn Mandarin Chinese pronunciations*
 
-<a href='https://play.google.com/store/apps/details?id=io.github.recursivecorruption.kuai&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+<a href='https://play.google.com/store/apps/details?id=io.github.recursivecorruption.kuai&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="75"/></a>
 
 The first and most important step in learning a language is to learn the pronunciation. This tool provides a simple and fast UI to test yourself, improve, and learn Chinese's pinyin spelling system, syllable pronunciations, and tones. The app works as follows:
 
@@ -27,6 +27,3 @@ Install this app on Google Play. Downloads will also be released for Windows, Ma
 ## Suggestions
 
 Feel free to open an issue on the GitHub page with any problems or suggestions.
-
-
-
