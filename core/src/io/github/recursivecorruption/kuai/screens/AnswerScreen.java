@@ -1,17 +1,18 @@
-package io.github.recursivecorruption.screens;
+package io.github.recursivecorruption.kuai.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import io.github.recursivecorruption.*;
 
-public class AnswerScreen extends Screen {
+import io.github.recursivecorruption.kuai.Input;
+
+public class AnswerScreen extends io.github.recursivecorruption.kuai.screens.Screen {
     private String guess, answer;
     private Sound sound;
-    private Button button;
-    private Button replayButton = new Button("Replay", new Vector2(0.5f, 0.3f));
+    private io.github.recursivecorruption.kuai.Button button;
+    private io.github.recursivecorruption.kuai.Button replayButton = new io.github.recursivecorruption.kuai.Button("Replay", new Vector2(0.5f, 0.3f));
 
     public AnswerScreen(String guess, String answer, Sound sound) {
         this.guess = guess;
@@ -20,11 +21,11 @@ public class AnswerScreen extends Screen {
         }
         this.answer = answer;
         this.sound = sound;
-        this.button = new Button("Continue", new Vector2(0.5f, 0.61f), CommonUI.BUTTON_COLOR, CommonUI.BUTTON_PADDING);
+        this.button = new io.github.recursivecorruption.kuai.Button("Continue", new Vector2(0.5f, 0.61f), io.github.recursivecorruption.kuai.CommonUI.BUTTON_COLOR, io.github.recursivecorruption.kuai.CommonUI.BUTTON_PADDING);
     }
 
     @Override
-    public void render(Renderer renderer) {
+    public void render(io.github.recursivecorruption.kuai.Renderer renderer) {
         replayButton.render(renderer);
         if (guess.equalsIgnoreCase(answer)) {
             renderer.text(0.5f, 0.4f, "Correct!", Color.GREEN);
@@ -55,17 +56,17 @@ public class AnswerScreen extends Screen {
     }
 
     @Override
-    public Screen update(KuaiApp app) {
+    public io.github.recursivecorruption.kuai.screens.Screen update(io.github.recursivecorruption.kuai.KuaiApp app) {
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-            return new AppScreen();
+            return new io.github.recursivecorruption.kuai.screens.AppScreen();
         }
         if (Gdx.input.isKeyJustPressed(Keys.R)) {
             if (sound != null) {
                 sound.play();
             }
         }
-        if (button.touches(Input.getX(), Input.getY())) {
-            return new AppScreen();
+        if (button.touches(io.github.recursivecorruption.kuai.Input.getX(), Input.getY())) {
+            return new io.github.recursivecorruption.kuai.screens.AppScreen();
         }
         return null;
     }

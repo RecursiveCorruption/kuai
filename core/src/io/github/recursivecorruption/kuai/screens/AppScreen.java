@@ -1,14 +1,11 @@
-package io.github.recursivecorruption.screens;
+package io.github.recursivecorruption.kuai.screens;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
-import io.github.recursivecorruption.Button;
-import io.github.recursivecorruption.Constants;
-import io.github.recursivecorruption.KuaiApp;
-import io.github.recursivecorruption.Renderer;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,15 +17,13 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.*;
 
-import static io.github.recursivecorruption.Constants.ACCENT_GROUPS;
-
 public class AppScreen extends Screen {
     private String textEntry = "", pinyin = null;
     private Sound sound = null;
     private Random random = new Random();
     private int savedAccent = -1;
     private Vector2 buttonPos = new Vector2(0.85f, 0.45f);
-    private Button replayButton = new Button("Replay", buttonPos);
+    private io.github.recursivecorruption.kuai.Button replayButton = new io.github.recursivecorruption.kuai.Button("Replay", buttonPos);
     private boolean exit = false;
 
     public AppScreen() {
@@ -62,7 +57,7 @@ public class AppScreen extends Screen {
 
     private static String getPinyin(String soundId) {
         try {
-            Document doc = Jsoup.connect(String.format(Constants.INFO_URL, soundId)).get();
+            Document doc = Jsoup.connect(String.format(io.github.recursivecorruption.kuai.Constants.INFO_URL, soundId)).get();
 
             for (Element element : doc.select("a")) {
                 if (element.toString().contains("custom.pinyin")) {
@@ -109,7 +104,7 @@ public class AppScreen extends Screen {
             sound = null;
         }
         String soundId = "" + randomSoundId();
-        String url = String.format(Constants.MP3_URL, soundId);
+        String url = String.format(io.github.recursivecorruption.kuai.Constants.MP3_URL, soundId);
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         FileHandle basicHandle = saveFile(url);
         if (basicHandle != null) {
@@ -130,7 +125,7 @@ public class AppScreen extends Screen {
     }
 
     @Override
-    public void render(Renderer renderer) {
+    public void render(io.github.recursivecorruption.kuai.Renderer renderer) {
         if (sound == null) {
             renderer.text(0.5f, 0.5f, "Loading...");
         } else {
@@ -153,7 +148,7 @@ public class AppScreen extends Screen {
         String rawBehind = ("" + textEntry.charAt(textEntry.length() - 1));
         String behind = rawBehind.toLowerCase();
         boolean isLower = behind.equals(rawBehind);
-        for (String accents : ACCENT_GROUPS) {
+        for (String accents : io.github.recursivecorruption.kuai.Constants.ACCENT_GROUPS) {
             if (accents.contains(behind) && accentNum < accents.length()) {
                 String accent = "" + accents.charAt(accentNum);
                 if (!isLower) {
@@ -239,7 +234,7 @@ public class AppScreen extends Screen {
     }
 
     @Override
-    public Screen update(KuaiApp app) {
+    public Screen update(io.github.recursivecorruption.kuai.KuaiApp app) {
         if (exit) {
             Screen screen = new AnswerScreen(textEntry, pinyin, sound);
             sound = null;

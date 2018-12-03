@@ -1,15 +1,13 @@
-package io.github.recursivecorruption;
+package io.github.recursivecorruption.kuai;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import io.github.recursivecorruption.screens.AppScreen;
-import io.github.recursivecorruption.screens.IntroScreen;
-import io.github.recursivecorruption.screens.Screen;
+
+import io.github.recursivecorruption.kuai.screens.AppScreen;
+import io.github.recursivecorruption.kuai.screens.IntroScreen;
+import io.github.recursivecorruption.kuai.screens.Screen;
 
 public class KuaiApp extends ApplicationAdapter {
     private Renderer renderer;

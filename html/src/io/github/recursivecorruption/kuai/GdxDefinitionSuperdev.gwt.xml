@@ -3,7 +3,7 @@
 <module rename-to="html">
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 
-    <inherits name='io.github.recursivecorruption.GdxDefinition' />
+    <inherits name='io.github.recursivecorruption.kuai.GdxDefinition' />
     
     <collapse-all-properties />
     

@@ -1,4 +1,4 @@
-package io.github.recursivecorruption;
+package io.github.recursivecorruption.kuai;
 
 public class Constants {
     public static final String[] ACCENT_GROUPS = {

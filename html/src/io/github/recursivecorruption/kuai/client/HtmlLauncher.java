@@ -1,9 +1,9 @@
-package io.github.recursivecorruption.client;
+package io.github.recursivecorruption.kuai.client;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import io.github.recursivecorruption.KuaiApp;
+import io.github.recursivecorruption.kuai.KuaiApp;
 
 public class HtmlLauncher extends GwtApplication {
 

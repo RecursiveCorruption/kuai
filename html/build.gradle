@@ -4,8 +4,8 @@ gwt {
     minHeapSize="1G"
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
-    modules 'io.github.recursivecorruption.GdxDefinition'
-    devModules 'io.github.recursivecorruption.GdxDefinitionSuperdev'
+    modules 'io.github.recursivecorruption.kuai.GdxDefinition'
+    devModules 'io.github.recursivecorruption.kuai.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler {

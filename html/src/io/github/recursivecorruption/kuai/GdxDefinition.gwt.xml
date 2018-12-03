@@ -4,7 +4,7 @@
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 
 	<inherits name='KuaiApp' />
-	<entry-point class='io.github.recursivecorruption.client.HtmlLauncher' />
+	<entry-point class='io.github.recursivecorruption.kuai.client.HtmlLauncher' />
 	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
 </module>

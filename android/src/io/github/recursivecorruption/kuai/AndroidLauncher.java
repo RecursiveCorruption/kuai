@@ -1,4 +1,4 @@
-package io.github.recursivecorruption;
+package io.github.recursivecorruption.kuai;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
+
+import io.github.recursivecorruption.kuai.KuaiApp;
+import io.github.recursivecorruption.kuai.R;
 
 public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks {
     @Override

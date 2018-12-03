@@ -1,4 +1,4 @@
-package io.github.recursivecorruption;
+package io.github.recursivecorruption.kuai;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;

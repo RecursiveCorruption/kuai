@@ -1,4 +1,4 @@
-package io.github.recursivecorruption;
+package io.github.recursivecorruption.kuai;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -19,8 +19,8 @@ public class Button {
     public Button(String label, Vector2 center) {
         this.label = label;
         this.center = center;
-        this.color = CommonUI.BUTTON_COLOR;
-        this.padding = CommonUI.BUTTON_PADDING;
+        this.color = io.github.recursivecorruption.kuai.CommonUI.BUTTON_COLOR;
+        this.padding = io.github.recursivecorruption.kuai.CommonUI.BUTTON_PADDING;
     }
 
     public void render(Renderer renderer) {
@@ -35,7 +35,7 @@ public class Button {
         if (buttonCorner == null || buttonSize == null) {
             return true;
         }
-        if (Input.isTouched()) {
+        if (io.github.recursivecorruption.kuai.Input.isTouched()) {
             Vector2 botRight = new Vector2(buttonCorner).add(buttonSize);
             return buttonCorner.x < x && x < botRight.x &&
                     buttonCorner.y < y && y < botRight.y;

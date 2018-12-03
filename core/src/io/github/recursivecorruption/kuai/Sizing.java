@@ -1,4 +1,4 @@
-package io.github.recursivecorruption;
+package io.github.recursivecorruption.kuai;
 
 import com.badlogic.gdx.Gdx;
 
