@@ -183,7 +183,6 @@ public class AppScreen extends Screen {
     @Override
     public boolean keyTyped(char character) {
         String s = "" + character;
-        Gdx.app.log("Kuai", "Key: " + character + " = " + (int) character);
         switch ((int) character) {
             case 18:  // Ctrl+r
                 playSound();
