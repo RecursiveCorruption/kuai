@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
-
+import io.github.recursivecorruption.kuai.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,6 +17,10 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.*;
 
+enum AppError {
+    NONE, REQUEST_ERROR, LOAD_SOUND_ERROR
+}
+
 public class AppScreen extends Screen {
     private String textEntry = "", pinyin = null;
     private Sound sound = null;
@@ -25,13 +29,32 @@ public class AppScreen extends Screen {
     private Vector2 buttonPos = new Vector2(0.85f, 0.45f);
     private io.github.recursivecorruption.kuai.Button replayButton = new io.github.recursivecorruption.kuai.Button("Replay", buttonPos);
     private boolean exit = false;
+    private AppError error = AppError.NONE;
 
     public AppScreen() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (sound == null || sound.play() == -1) {
+                while (true) {
                     loadSound();
+                    if (sound == null) {
+                        error = AppError.LOAD_SOUND_ERROR;
+                    } else {
+                        long status = sound.play();
+                        if (status == -1) {
+                            error = AppError.REQUEST_ERROR;
+                        } else {
+                            error = AppError.NONE;
+                        }
+                    }
+
+                    if (error == AppError.NONE) {
+                        return;
+                    }
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException ignored) {
+                    }
                 }
             }
         }).start();
@@ -50,7 +73,7 @@ public class AppScreen extends Screen {
             }
             return fileHandle;
         } catch (IOException e) {
-            System.err.println("Failed to load URL: " + url);
+            Logger.error("Failed to load " + url + " with error: " + e);
             return null;
         }
     }
@@ -127,7 +150,19 @@ public class AppScreen extends Screen {
     @Override
     public void render(io.github.recursivecorruption.kuai.Renderer renderer) {
         if (sound == null) {
-            renderer.text(0.5f, 0.5f, "Loading...");
+            switch (error) {
+                case NONE:
+                    renderer.text(0.5f, 0.5f, "Loading...");
+                    break;
+                case REQUEST_ERROR:
+                    renderer.text(0.5f, 0.45f, "No internet.");
+                    renderer.text(0.5f, 0.55f, "Retrying...");
+                    break;
+                case LOAD_SOUND_ERROR:
+                    renderer.text(0.5f, 0.45f, "Failed to load sound.");
+                    renderer.text(0.5f, 0.55f, "Retrying...");
+                    break;
+            }
         } else {
             if (renderer.isOnScreen(0.5f, 0.35f - renderer.textHeight() / 2f)) {
                 buttonPos.set(0.5f, 0.35f);
