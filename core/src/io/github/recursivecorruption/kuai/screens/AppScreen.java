@@ -10,10 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
 
@@ -30,8 +27,10 @@ public class AppScreen extends Screen {
     private io.github.recursivecorruption.kuai.Button replayButton = new io.github.recursivecorruption.kuai.Button("Replay", buttonPos);
     private boolean exit = false;
     private AppError error = AppError.NONE;
+    private Set<Integer> pinyinIds;
 
     public AppScreen() {
+        pinyinIds = loadSoundIds();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -58,6 +57,23 @@ public class AppScreen extends Screen {
                 }
             }
         }).start();
+    }
+
+    private static Set<Integer> loadSoundIds() {
+        Set<Integer> ids = new HashSet<>();
+        try {
+            Scanner scanner = new Scanner(Gdx.files.internal("pinyin-ids.txt").file());
+            while (scanner.hasNextInt()) {
+                ids.add(scanner.nextInt());
+            }
+        } catch (FileNotFoundException e) {
+            Logger.error("Failed to load ids file");
+            ids.addAll(range(1584, 11150));
+            ids.removeAll(range(1734, 1934));
+            ids.removeAll(range(2012, 2293));
+            ids.removeAll(range(1590, 1599));
+        }
+        return ids;
     }
 
     private static FileHandle saveFile(String url) {
@@ -114,11 +130,7 @@ public class AppScreen extends Screen {
     }
 
     private int randomSoundId() {
-        Set<Integer> ids = range(1584, 11150);
-        ids.removeAll(range(1734, 1934));
-        ids.removeAll(range(2012, 2293));
-        ids.removeAll(range(1590, 1599));
-        return getIndex(ids, random.nextInt(ids.size()));
+        return getIndex(pinyinIds, random.nextInt(pinyinIds.size()));
     }
 
     private void loadSound() {
@@ -127,6 +139,7 @@ public class AppScreen extends Screen {
             sound = null;
         }
         String soundId = "" + randomSoundId();
+        Logger.log("Sound ID: " + soundId);
         String url = String.format(io.github.recursivecorruption.kuai.Constants.MP3_URL, soundId);
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         FileHandle basicHandle = saveFile(url);
@@ -134,8 +147,10 @@ public class AppScreen extends Screen {
             FileHandle handle = Gdx.files.absolute(basicHandle.path());
             Sound sound = Gdx.audio.newSound(handle);
             String pinyin = getPinyin(soundId);
-            this.sound = sound;  // Prevent sound loading before pinyin
-            this.pinyin = pinyin;
+            if (!pinyin.isEmpty()) {
+                this.sound = sound;  // Prevent sound loading before pinyin
+                this.pinyin = pinyin;
+            }
         }
     }
 
