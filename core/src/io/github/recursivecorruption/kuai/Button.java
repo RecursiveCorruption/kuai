@@ -19,8 +19,8 @@ public class Button {
     public Button(String label, Vector2 center) {
         this.label = label;
         this.center = center;
-        this.color = io.github.recursivecorruption.kuai.CommonUI.BUTTON_COLOR;
-        this.padding = io.github.recursivecorruption.kuai.CommonUI.BUTTON_PADDING;
+        this.color = CommonUI.BUTTON_COLOR;
+        this.padding = CommonUI.BUTTON_PADDING;
     }
 
     public void render(Renderer renderer) {
@@ -35,7 +35,7 @@ public class Button {
         if (buttonCorner == null || buttonSize == null) {
             return true;
         }
-        if (io.github.recursivecorruption.kuai.Input.isTouched()) {
+        if (Input.isTouched()) {
             Vector2 botRight = new Vector2(buttonCorner).add(buttonSize);
             return buttonCorner.x < x && x < botRight.x &&
                     buttonCorner.y < y && y < botRight.y;

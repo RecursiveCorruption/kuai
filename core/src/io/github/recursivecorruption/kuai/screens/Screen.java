@@ -1,6 +1,9 @@
 package io.github.recursivecorruption.kuai.screens;
 
 import com.badlogic.gdx.InputProcessor;
+import io.github.recursivecorruption.kuai.Input;
+import io.github.recursivecorruption.kuai.KuaiApp;
+import io.github.recursivecorruption.kuai.Renderer;
 
 /**
  * Any updatable and renderable object in the world
@@ -8,9 +11,9 @@ import com.badlogic.gdx.InputProcessor;
 public abstract class Screen implements InputProcessor {
     public void dispose() {}
 
-    public abstract void render(io.github.recursivecorruption.kuai.Renderer renderer);
+    public abstract void render(Renderer renderer);
 
-    public abstract Screen update(io.github.recursivecorruption.kuai.KuaiApp app);
+    public abstract Screen update(KuaiApp app);
 
     @Override
     public boolean keyDown(int keycode) {
@@ -33,7 +36,7 @@ public abstract class Screen implements InputProcessor {
 
     @Override
     public final boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return touchDown(io.github.recursivecorruption.kuai.Input.tx(screenX), io.github.recursivecorruption.kuai.Input.ty(screenY), pointer, button);
+        return touchDown(Input.tx(screenX), Input.ty(screenY), pointer, button);
     }
 
     @Override

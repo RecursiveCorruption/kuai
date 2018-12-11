@@ -51,7 +51,7 @@ public class Renderer {
     private BitmapFont generateFont() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ClearSans-Thin.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-        for (String accents : io.github.recursivecorruption.kuai.Constants.ACCENT_GROUPS) {
+        for (String accents : Constants.ACCENT_GROUPS) {
             parameter.characters += accents.toLowerCase() + accents.toUpperCase();
         }
         parameter.characters = removeDuplicates(parameter.characters);

@@ -2,71 +2,61 @@ package io.github.recursivecorruption.kuai.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import io.github.recursivecorruption.kuai.*;
 
-import io.github.recursivecorruption.kuai.Input;
+public class AnswerScreen extends Screen {
+    private String guess;
+    private Pinyin pinyin;
+    private Button button;
+    private Button replayButton = new Button("Replay", new Vector2(0.5f, 0.3f));
 
-public class AnswerScreen extends io.github.recursivecorruption.kuai.screens.Screen {
-    private String guess, answer;
-    private Sound sound;
-    private io.github.recursivecorruption.kuai.Button button;
-    private io.github.recursivecorruption.kuai.Button replayButton = new io.github.recursivecorruption.kuai.Button("Replay", new Vector2(0.5f, 0.3f));
-
-    public AnswerScreen(String guess, String answer, Sound sound) {
+    public AnswerScreen(String guess, Pinyin pinyin) {
         this.guess = guess;
-        if (answer != null && answer.length() > 0) {
-            answer = answer.substring(0, 1).toUpperCase() + answer.substring(1);
-        }
-        this.answer = answer;
-        this.sound = sound;
-        this.button = new io.github.recursivecorruption.kuai.Button("Continue", new Vector2(0.5f, 0.61f), io.github.recursivecorruption.kuai.CommonUI.BUTTON_COLOR, io.github.recursivecorruption.kuai.CommonUI.BUTTON_PADDING);
+        this.pinyin = pinyin;
+        this.button = new Button("Continue", new Vector2(0.5f, 0.61f), CommonUI.BUTTON_COLOR, CommonUI.BUTTON_PADDING);
+
+        this.pinyin.setLabel(pinyin.getLabel().substring(0, 1).toUpperCase() + pinyin.getLabel().substring(1));
     }
 
     @Override
-    public void render(io.github.recursivecorruption.kuai.Renderer renderer) {
+    public void render(Renderer renderer) {
         replayButton.render(renderer);
-        if (guess.equalsIgnoreCase(answer)) {
+        if (guess.equalsIgnoreCase(pinyin.getLabel())) {
             renderer.text(0.5f, 0.4f, "Correct!", Color.GREEN);
-            renderer.text(0.5f, 0.5f, answer);
+            renderer.text(0.5f, 0.5f, pinyin.getLabel());
         } else {
             renderer.text(0.5f, 0.4f, "You guessed: " + guess);
-            renderer.text(0.5f, 0.5f, "The correct answer is: " + answer);
+            renderer.text(0.5f, 0.5f, "The correct answer is: " + pinyin.getLabel());
         }
         button.render(renderer);
     }
 
     @Override
     public void dispose() {
-        if (sound != null) {
-            sound.dispose();
-        }
+        pinyin.dispose();
     }
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int buttonId) {
         if (replayButton.touches(x, y)) {
-            if (sound != null) {
-                sound.play();
-            }
+            pinyin.getSound().play();
             return true;
         }
         return false;
     }
 
     @Override
-    public io.github.recursivecorruption.kuai.screens.Screen update(io.github.recursivecorruption.kuai.KuaiApp app) {
+    public Screen update(KuaiApp app) {
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-            return new io.github.recursivecorruption.kuai.screens.AppScreen();
+            return app.createNextAppScreen();
         }
         if (Gdx.input.isKeyJustPressed(Keys.R)) {
-            if (sound != null) {
-                sound.play();
-            }
+            pinyin.getSound().play();
         }
-        if (button.touches(io.github.recursivecorruption.kuai.Input.getX(), Input.getY())) {
-            return new io.github.recursivecorruption.kuai.screens.AppScreen();
+        if (button.touches(Input.getX(), Input.getY())) {
+            return app.createNextAppScreen();
         }
         return null;
     }

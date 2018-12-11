@@ -2,6 +2,8 @@ package io.github.recursivecorruption.kuai.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import io.github.recursivecorruption.kuai.KuaiApp;
+import io.github.recursivecorruption.kuai.Renderer;
 
 public class IntroScreen extends Screen {
     private int currentPos = 0;
@@ -40,7 +42,7 @@ public class IntroScreen extends Screen {
     }
 
     @Override
-    public void render(io.github.recursivecorruption.kuai.Renderer renderer) {
+    public void render(Renderer renderer) {
         String[] lines = intros[currentPos];
         for (int i = 0; i < lines.length; ++i) {
             renderer.text(0.5f, 0.5f - ((lines.length - 1) / 2f) * 0.07f + 0.07f * i, lines[i]);
@@ -48,14 +50,14 @@ public class IntroScreen extends Screen {
     }
 
     @Override
-    public Screen update(io.github.recursivecorruption.kuai.KuaiApp app) {
+    public Screen update(KuaiApp app) {
         if (Gdx.input.justTouched()) {
             ++currentPos;
         }
         if (currentPos >= intros.length) {
             preferences.putBoolean("hasShownIntro", true);
             preferences.flush();
-            return new io.github.recursivecorruption.kuai.screens.AppScreen();
+            return app.createNextAppScreen();
         }
         return this;
     }
