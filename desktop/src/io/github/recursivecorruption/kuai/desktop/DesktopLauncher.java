@@ -7,7 +7,7 @@ import com.badlogic.gdx.Files.FileType;
 import io.github.recursivecorruption.kuai.KuaiApp;
 
 public class DesktopLauncher {
-	public static LwjglApplicationConfiguration createConfig() {
+	private static LwjglApplicationConfiguration createConfig() {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.addIcon("icon/icon-256x256.png", FileType.Internal);
 		config.addIcon("icon/icon-64x64.png", FileType.Internal);
