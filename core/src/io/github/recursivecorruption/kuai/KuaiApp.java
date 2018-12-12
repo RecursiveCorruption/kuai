@@ -5,7 +5,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
-
 import io.github.recursivecorruption.kuai.screens.AppScreen;
 import io.github.recursivecorruption.kuai.screens.IntroScreen;
 import io.github.recursivecorruption.kuai.screens.LoadPinyinScreen;
@@ -16,6 +15,15 @@ public class KuaiApp extends ApplicationAdapter {
     private Preferences preferences;
     private Screen screen;
     private PinyinManager pinyinManager;
+    private Screen alternateScreen;
+
+    public KuaiApp(Screen alternateScreen) {
+        this.alternateScreen = alternateScreen;
+    }
+
+    public KuaiApp() {
+        alternateScreen = null;
+    }
 
     public Screen createNextAppScreen() {
         if (pinyinManager.hasNext()) {
@@ -31,10 +39,14 @@ public class KuaiApp extends ApplicationAdapter {
         renderer = new Renderer();
         pinyinManager = new PinyinManager();
         preferences = Gdx.app.getPreferences("data");
-        if (!preferences.getBoolean("hasShownIntro", false)) {
-            setScreen(new IntroScreen(preferences));
+        if (alternateScreen != null) {
+            setScreen(alternateScreen);
         } else {
-            setScreen(createNextAppScreen());
+            if (!preferences.getBoolean("hasShownIntro", false)) {
+                setScreen(new IntroScreen(preferences));
+            } else {
+                setScreen(createNextAppScreen());
+            }
         }
     }
 

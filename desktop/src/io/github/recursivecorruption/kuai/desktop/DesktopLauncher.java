@@ -7,10 +7,8 @@ import com.badlogic.gdx.Files.FileType;
 import io.github.recursivecorruption.kuai.KuaiApp;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static LwjglApplicationConfiguration createConfig() {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-
-		LwjglApplication app = new LwjglApplication(new KuaiApp(), config);
 		config.addIcon("icon/icon-256x256.png", FileType.Internal);
 		config.addIcon("icon/icon-64x64.png", FileType.Internal);
 		config.addIcon("icon/icon-32x32.png", FileType.Internal);
@@ -19,5 +17,9 @@ public class DesktopLauncher {
 		config.useGL30 = false;
 		config.title = "Kuai";
 		config.addIcon("icon/icon-64x64.png", Files.FileType.Internal);
+		return config;
+	}
+	public static void main (String[] arg) {
+		new LwjglApplication(new KuaiApp(), createConfig());
 	}
 }
